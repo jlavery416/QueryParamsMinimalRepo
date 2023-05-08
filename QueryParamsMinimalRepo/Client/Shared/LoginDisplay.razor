@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+@inject NavigationManager Navigation
+
+<button class="nav-link btn btn-link" @onclick="BeginLogin">Log in</button>
+
+@code {
+  public void BeginLogin() {
+    InteractiveRequestOptions options = new InteractiveRequestOptions() {
+      Interaction = InteractionType.SignIn,
+      ReturnUrl = Navigation.Uri
+    };
+    options.TryAddAdditionalParameter("tenant", "Test-Tenant");
+    Navigation.NavigateToLogin("authentication/login", options);
+  }
+
+  public void BeginLogOut() {
+    Navigation.NavigateToLogout("authentication/logout");
+  }
+}
